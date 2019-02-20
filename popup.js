@@ -3,12 +3,9 @@ $(function () {
 });
 
 function checkCurrentTab() {
-    chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
-        console.log('sending message...')
-        // request content_script to retrieve title element innerHTML from current tab
-        chrome.tabs.sendMessage(tabs[0].id, "getHeadTitle", function (obj) {
-            console.log('receiving response... ', obj)
-            //$("#log").html(obj);
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, "", function (response) {
+            $("#log").html(response);
         });
     });
 };
